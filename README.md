@@ -24,6 +24,10 @@ python3 -m http.server 4173
 
 Then open `http://localhost:4173`.
 
+## Deployment
+
+The `main` branch is connected to Vercel. Commits to `main` deploy automatically to the live site; other branches receive preview deployments.
+
 ## Project context
 
 The visual direction was inspired by [Designed to Scale](https://designed-to-scale.vercel.app/). Backend, In Motion has its own curriculum, interface, and diagrams. The project was developed with AI assistance.
