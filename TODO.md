@@ -13,9 +13,11 @@ architecture, course content, and interactive lesson behavior.
 - [x] Make Pause stop both SVG and CSS animations; resume both consistently.
 - [x] Respect `prefers-reduced-motion` across the entire scene, including
   animated paths, particles, highlights, and transitions.
-- [ ] Announce step changes to screen readers without excessive repeated
+- [x] Announce step changes to screen readers without excessive repeated
   announcements; verify focus remains useful during navigation.
-- [ ] Prevent global keyboard shortcuts from interfering with focused
+  Browser focus and live-region updates were checked; a real screen-reader
+  announcement test remains part of the verification section below.
+- [x] Prevent global keyboard shortcuts from interfering with focused
   interactive controls, especially Space on buttons.
 
 ## P1 — Diagram readability and visual consistency
