@@ -91,12 +91,27 @@ function componentDescription(lessonTitle, componentId) {
     : 'No component-specific explanation is available for this lesson yet.';
 }
 function tint(hex,amount){const h=hex.replace('#','');const n=parseInt(h,16);const f=v=>Math.max(0,Math.min(255,Math.round(v+(amount>0?(255-v)*amount:v*amount))));const a=f(n>>16),b=f((n>>8)&255),c=f(n&255);return '#'+[a,b,c].map(x=>x.toString(16).padStart(2,'0')).join('')}
-function groundSvg(){return `<ellipse class="iso-ground" cx="0" cy="48" rx="77" ry="24" fill="#53dbd51a" stroke="#6ccfc877" stroke-width="1.5"/>`}
+function groundSvg(){return `<ellipse class="iso-ground" cx="0" cy="51" rx="62" ry="15" fill="var(--diagram-ground-shadow)" stroke="none"/>`}
 function shapeSvg(shape,color){const light=tint(color,.24),dark=tint(color,-.18),side=tint(color,-.32);switch(shape){
 case 'cylinder':return `<path d="M-57 -24 V31 C-57 56 57 56 57 31 V-24" fill="${dark}"/><ellipse cx="0" cy="31" rx="57" ry="22" fill="${side}"/><path d="M-57 -24 V31 C-57 56 57 56 57 31 V-24" fill="${dark}"/><ellipse cx="0" cy="-24" rx="57" ry="22" fill="${light}"/><ellipse cx="0" cy="-24" rx="57" ry="22" fill="none"/><path d="M-57 -24V31 M57 -24V31" fill="none"/>`;
  case 'cube':return `<path d="M-8 -55 Q0 -59 8 -55 L53 -32 Q61 -28 61 -19 V23 Q61 32 53 36 L8 59 Q0 63 -8 59 L-53 36 Q-61 32 -61 23 V-19 Q-61 -28 -53 -32Z" fill="${color}"/><path d="M0 5 L61 -26 V23 Q61 32 53 36 L8 59 Q0 63 0 57Z" fill="${dark}" stroke="none"/><path d="M-53 -32 L-8 -55 Q0 -59 8 -55 L53 -32 Q58 -29 60 -25 L8 2 Q0 6 -8 2 L-60 -25 Q-58 -29 -53 -32Z" fill="${light}" stroke="none"/><path d="M-60 -25 L-8 2 Q0 6 8 2 L60 -25 M0 5V59" fill="none" stroke="#31483a" stroke-opacity=".45"/>`;
  case 'shield':return `<path d="M-8 -57 Q0 -61 8 -57 L50 -38 Q58 -34 58 -25 L56 18 Q54 47 8 64 Q0 67 -8 64 Q-54 47 -56 18 L-58 -25 Q-58 -34 -50 -38Z" fill="${color}"/><path d="M0 -58 L50 -38 Q58 -34 58 -25 L56 18 Q54 47 8 64 Q0 67 0 59Z" fill="${dark}" stroke="none"/><path d="M-50 -38 L-8 -57 Q0 -61 8 -57 L50 -38 Q55 -36 57 -31 L8 1 Q0 6 -8 1 L-57 -31 Q-55 -36 -50 -38Z" fill="${light}" stroke="none"/><path d="M-57 -31 L-8 1 Q0 6 8 1 L57 -31 M0 5V64" fill="none" stroke-opacity=".45"/>`;
- case 'browser':return `<path d="M-69 24 L-8 -3 Q0 -7 8 -3 L70 24 Q77 27 77 34 V39 Q77 45 70 48 L8 76 Q0 80 -8 76 L-69 48 Q-76 45 -76 39 V34 Q-76 27 -69 24Z" fill="${side}"/><path d="M-69 24 L-8 -3 Q0 -7 8 -3 L70 24 Q77 27 70 31 L8 59 Q0 63 -8 59 L-69 31 Q-76 27 -69 24Z" fill="${light}"/><path d="M-44 12 V-46 Q-44 -52 -38 -55 L12 -76 Q19 -79 19 -71 V-13 Q19 -8 13 -5 L-38 18 Q-44 21 -44 12Z" fill="${dark}"/><path d="M-37 10 V-45 Q-37 -48 -33 -50 L11 -68 Q14 -69 14 -65 V-14 Q14 -11 11 -10 L-33 12 Q-37 14 -37 10Z" fill="#f9f8f5"/><path d="M-31 -40 L8 -56 V-15 L-31 4Z" fill="${color}" stroke="none"/><path d="M-28 6 L4 -7 M-24 13 L8 0" stroke-width="1" fill="none"/>`;
+ case 'browser': {
+  const keys = [0, 5, 10].map(y => [0, 7, 14, 21, 28, 35].map(x =>
+    `<rect x="${x}" y="${y}" width="5" height="3.4" rx=".7"/>`
+  ).join('')).join('');
+  return `
+    <path d="M-69 20 L-7 -8 Q0 -11 7 -8 L69 20 Q74 22 74 27 V32 Q74 35 69 38 L7 66 Q0 69 -7 66 L-69 38 Q-74 35 -74 32 V27 Q-74 22 -69 20Z" fill="${side}"/>
+    <path d="M-69 20 L-7 -8 Q0 -11 7 -8 L69 20 Q77 24 69 28 L7 56 Q0 59 -7 56 L-69 28 Q-77 24 -69 20Z" fill="${light}"/>
+    <g transform="matrix(.91 -.41 .91 .41 -39 25)" stroke="none">
+      <rect x="-2" y="-2" width="44" height="17.5" rx="2.6" fill="${dark}"/>
+      <g fill="#f9f5ed">${keys}</g>
+      <rect x="12" y="20" width="17" height="11" rx="2.4" fill="${color}"/>
+    </g>
+    <path d="M-58 13 L-64 -41 Q-65 -47 -59 -50 L5 -79 Q11 -82 12 -75 L18 -18 Q19 -12 13 -9 L-50 20 Q-57 23 -58 13Z" fill="${dark}"/>
+    <path d="M-53 12 L-59 -40 Q-59 -43 -56 -45 L5 -72 Q7 -73 7 -70 L13 -18 Q14 -15 11 -14 L-50 14 Q-53 16 -53 12Z" fill="#f9f5ed"/>
+    <path d="M-49 7 L-54 -40 L3 -66 L8 -18Z" fill="${color}" stroke="none"/>`;
+ }
  case 'queue':return `<path d="M-8 -57 Q0 -60 8 -57 L54 -38 Q62 -35 62 -26 V24 Q62 31 54 35 L8 55 Q0 58 -8 55 L-54 35 Q-62 31 -62 24 V-26 Q-62 -35 -54 -38Z" fill="${color}"/><path d="M0 -8 L62 -34 V24 Q62 31 54 35 L8 55 Q0 58 0 52Z" fill="${dark}" stroke="none"/><path d="M-54 -38 L-8 -57 Q0 -60 8 -57 L54 -38 Q59 -36 61 -32 L8 -9 Q0 -5 -8 -9 L-61 -32 Q-59 -36 -54 -38Z" fill="${light}" stroke="none"/><path d="M-61 -32 L-8 -9 Q0 -5 8 -9 L61 -32 M0 -5V55 M-44 -11 L-18 -2 M-44 3 L-18 12 M-44 17 L-18 26" fill="none" stroke-width="2" stroke-linecap="round"/>`;
 case 'ring':return `<ellipse cx="0" cy="20" rx="61" ry="31" fill="${dark}"/><ellipse cx="0" cy="-10" rx="61" ry="31" fill="${color}"/><path d="M-61 -10V20 M61 -10V20" fill="none"/><ellipse cx="0" cy="-10" rx="31" ry="16" fill="#fff9"/>`;
 case 'people':return `${isoPeople(-30,8,8)}`;
